@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <nav class="menu">
+      <ul class="list">
+        <li><a href="#">Abstracting Away Data Using Getter and Setter</a></li>
+        <li><a href="#">Title</a></li>
+        <li><a href="#">Title</a></li>
+        <li><a href="#">Title</a></li>
+        <li><a href="#">Title</a></li>
+        <li><a href="#">Title</a></li>
+        <li><a href="#">Title</a></li>
+        <li><a href="#">Title</a></li>
+      </ul>
+      <div class="toggle"><i class="fa-solid fa-bars-staggered"></i></div>
+    </nav>
+  </header>
+  <main>
+    <header>
+      <h1>Technical Document</h1>
+      
+    </header>
+  
+    <section>
+      <h1 class="heading">Define a Constructor Function</h1>
+      <div class="code-block">
+  <p>Constructors are functions that create new objects. They define properties and behaviors that will belong to the new object. Think of them as a blueprint for the creation of new objects.</p>
+      <p>Here is an example of a constructor:</p>
+      
+    <pre>function Bird() {
+    this.name = "Albert";
+    this.color = "blue";
+    this.numLegs = 2;
+  }</pre>
+      
+      <p>This constructor defines a <code>Bird</code> object with properties <code>name</code>, <code>color</code>, and <code>numLegs</code> set to Albert, blue, and 2, respectively. Constructors follow a few conventions:</p>
+      <ul>
+        <li>Constructors are defined with a capitalized name to distinguish them from other functions that are not <code>constructors</code>.</li>
+        <li>Constructors use the keyword <code>this</code> to set properties of the object they will create. Inside the constructor, <code>this</code> refers to the new object it will create.</li>
+        <li>Constructors define properties and behaviors instead of returning a value as other functions might.</li>
+      </ul>
+        <p>Create a constructor, <code>Dog</code>, with properties <code>name</code>, <code>color</code>, and <code>numLegs</code> that are set to a string, a string, and a number, respectively.</p>
+      </div>
+      
+    </section>
+  <!--  Define a Constructor Function -->
+    
+    <section>
+      <h1 class="heading" id="#">Abstracting Away Data Using Getter and Setter</h1>
+      <div class="code-block">
+    <pre>class Book {
+    constructor(author) {
+      this._author = author;
+    }</pre>
+    <pre class="note"><code>_author</code> is the private variable</pre>
+    <pre>
+    get writer() {
+      return this._author;
+    }</pre>
+    <pre class="note">Book stored date can be access using a seperate variable <code>writer</code> effectively hidding the private variable <code>_author</code>;</pre>
+    <pre>
+    set writer(updatedAuthor) {
+      this._author = updatedAuthor;
+    }</pre>
+    <pre class="note">the user can modify contents without using the private variable <code>_author</code> using the public variable <code>writer</code>.</pre>
+  <pre>}</pre>
+  <h1>Output</h1>
+  <pre>const novel = new Book("Williams");
+  novel.writer; // Williams // get()
+  novel.writer = 'James'; // set()
+  novel.writer; // James // get()</pre>
+      </div>
+    </section>
+  <!--   Abstracting Away Data Using Getter and Setter -->
+      
+    <section>
+    <h1 class="heading" id="#">Chunky Monkey Algorithm</h1>
+    <div class="code-block">
+      <p>Write a <code>function</code> that splits an array (first argument) into groups the length of size (second argument) and returns them as a two-dimensional array.</p>
+  <pre>function chunkArrayInGroups(arr, size) {</pre>
+  
+  <pre>if (size  <= 0) {
+    return "Error"
+  }
+  
+  let newArr = [];
+  let group = [];
+  let x = 0;</pre>
+  
+  <pre>while(x < arr.length) {
+    for(let y = 0; y < size; y++) {
+  
+      if(x > arr.length-1) {
+        newArr.push(group);
+        return newArr;
+      }
+  
+      group[y] = arr[x];
+      x++
+  
+    }
+    newArr.push(group);
+    group = [];
+  }</pre>
+  <pre>return newArr;
+  }</pre>
+  <h1>Output</h1>
+  <pre>let x = chunkArrayInGroups(["a", "b", "c", "d", "e"], 2);
+  //["a","b"], ["c","d"], ["e"]</pre>
+    </div>
+  </section>
+  <!--   Chunky Monkey Algorithm -->
+  
+    <section>
+    <h1 class="heading" id="#">Mutation Algorithm</h1>
+    <div class="code-block">
+  <p>Return <code>true</code>  if the string in the first element of the array contains all of the letters of the string in the second element of the array. letter case does not matter.</p>
+  <pre>function mutation(arr) {
+  
+  let copy = arr.map (x => x.toLowerCase());
+  let found = "";
+  
+  for (let x = 0; x < copy[1].length; x++) {
+    found = "";
+    for(let y = 0; y < copy[0].length; y++) {
+      if (copy[1][x] == copy[0][y]) {
+        found = "f";
+      }
+    }
+    if (found == "") {
+      return false
+    }
+  }
+  return true;
+  }</pre>
+  
+  <h1>Output</h1>
+  
+  <pre>let x = mutation(["hello", "Heooo"]);
+  // true</pre>      
+    </div>
+  </section>
+  <!--   Mutation Algorithm -->
+  
+    <section>
+    <h1 class="heading" id="#">Sorted Index Array Algorithm</h1>
+    <div class="code-block">
+  <p>Return the lowest index at which a value (second argument) should be inserted into an array (first argument) once it has been sorted. The returned value should be a number.</p>
+  <pre>function getIndexToIns(arr, num) {
+  
+  let unsorted = arr.slice();
+  let current;
+  let index = 0;
+  let sorted = []; 
+  
+  for (let x = unsorted.length - 1; x >= 0; x--) {
+    current = unsorted[x];
+      for (let y = unsorted.length - 1; y >= 0; y--) {
+        if (current <= unsorted[y]) {
+          index = y;
+          current = unsorted[y];
+        }
+    }
+    unsorted.splice(index,1);
+    sorted.unshift(current);
+  }
+  
+  for(let x = 0; x < sorted.length; x++) {
+    if(sorted[x] >= num) {
+      return x;
+    }
+  }
+  return sorted.length;
+  }</pre>
+  
+  <h1>Output</h1>
+  
+  <pre>let x = getIndexToIns([3, 4, 10, 5], 2);
+  console.log(x);
+  // 2</pre>      
+    </div>
+  </section>
+  <!--   Sorted Index Array Algorithm -->
+  
+    <section>
+    <h1 class="heading" id="#">Nested Array Visualized</h1>
+    <div class="code-block">
+  <pre>let myNestedArray = [
+  
+  'level 1',                   /* myNestedArray[0]             */
+  ['level 2'],	               /* myNestedArray[1][0]          */
+  [['level 3','deep']],	       /* myNestedArray[2][0][0]       */
+  [[['level 4','deeper']]],    /* myNestedArray[3][0][0][0]    */
+  [[[['level 5','deepest']]]]  /* myNestedArray[4][0][0][0][0] */
+  
+  ];</pre>      
+    </div>
+  </section>
+  <!--   Nested Array Visualized -->
+  
+    <section>
+    <h1 class="heading" id="#">Find Longest Word in String Algorithm</h1>
+    <div class="code-block">
+      <h1>My Solution</h1>
+  <pre>function findLongestWordLength(str) {
+  let regex = /\w+/g;
+  let arr = str.match(regex);
+  let longest = "l";
+  for (let i = 0; i < arr.length; i++) {
+    if(arr[i].length > longest.length) {
+      longest = arr[i];
+    }
+  }
+  return longest.length;
+  }
+  
+  let x = findLongestWordLength("The quick brown fox jumped over the lazy dog");
+  console.log(x);</pre>
+  <h1>Solution 1</h1>
+  <pre>function findLongestWordLength(str) {
+  let longestLength = 0;
+  let currentLength = 0;
+  
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] === " ") {
+      if (currentLength > longestLength) {
+        longestLength = currentLength;
+      }
+      currentLength = 0;
+    } else {
+      currentLength++;
+    }
+  }
+  if (currentLength > longestLength) {
+    longestLength = currentLength;
+  }
+  
+  return longestLength;
+  }</pre>
+  <h1>Solution 2</h1>
+  <pre>function findLongestWordLength(str) {
+  let words = str.split(' ');
+  let maxLength = 0;
+  
+  for (let i = 0; i < words.length; i++) {
+    if (words[i].length > maxLength) {
+      maxLength = words[i].length;
+    }
+  }
+  
+  return maxLength;
+  }</pre>
+  <h1>Solution 3</h1>
+  <pre>function findLongestWordLength(s) {
+  return s
+    .split(' ')
+    .reduce((longest, word) => Math.max(longest, word.length), 0);
+  }</pre>
+  <h1>Solution 4</h1>
+  <pre>function findLongestWordLength(str) {
+  return Math.max(...str.split(" ").map(word => word.length));
+  }</pre>
+  <h1>Solution 5</h1>
+  <pre>function findLongestWordLength(str) {</pre>
+  <pre class="note">split the string into individual words</pre>
+  <pre>  const words = str.split(" ");</pre>
+  
+  <pre class="note">if words only has 1 element left that is the longest element</pre>
+  
+  <pre>  if (words.length == 1) {
+    return words[0].length;
+  }</pre>
+  
+  <pre class="note">if words has multiple elements, remove the first element and recursively call the function</pre>
+  <pre>  return Math.max(
+    words[0].length,
+    findLongestWordLength(words.slice(1).join(" "))
+  );
+  }
+  
+  findLongestWordLength("The quick brown fox jumped over the lazy dog");</pre>
+    </div>
+  </section>
+  <!--   Find Longest Word in String Algorithm -->
+  
+    <section>
+    <h1 class="heading" id="#">Filter Nested Array Algorithm</h1>
+    <div class="code-block">
+  <p>Filter a number out from a nested array</p>
+  <pre>function filteredArray(arr, elem) {
+  
+  let newArr = [];
+  
+    for(let i = 0; i < arr.length; i++) {
+      newArr.push(arr[i]);
+      for(let j = 0; j < newArr[i].length; j++){
+        if(newArr[i][j] == elem) {
+          newArr[i].splice(j,1);
+          j--</pre>
+          <pre class="note">The j is decreased to account for the newArr length being decreased. If I did not do this the j would reach the condition before the new Arr have been completely pass through.</pre>
+  <pre>        }
+      }
+    }
+  return newArr;
+  }</pre>
+  
+  <h1>Output</h1>
+  
+  <pre>let arr = [[10, 8, 3], [14, 6, 23], [3, 18, 6]];
+  let x = filteredArray(arr, 18);
+  
+  //[ [ 10, 8 ], [ 14, 6, 23 ], [ 18, 6 ] ]</pre>      
+    </div>
+  </section>
+  <!--   Filter Nested Array Algorithm -->
+  
+    <section>
+    <h1 class="heading" id="#">Method indexOf ( )</h1>
+    <div class="code-block">
+  <h1>Solution 1</h1>
+  <pre>function quickCheck(arr, elem) {
+  return arr.indexOf(elem) >= 0 ? true : false;
+  }
+  
+  console.log(quickCheck(["squash", "onions", "shallots"], "mushrooms"));
+  // false
+  </pre>
+  <h1>Solution 2</h1>
+  <pre>function quickCheck(arr, elem) {
+  return arr.indexOf(elem) != -1;
+  }
+  
+  console.log(quickCheck(["squash", "onions", "shallots"], "mushrooms"));
+  // false
+  </pre>      
+    </div>
+  </section>
+  <!--   Method indexOf() -->
+  
+    <section>
+    <h1 class="heading" id="#">Regex - Mixed Group /(a | b)/ </h1>
+    <div class="code-block">
+  <p>Test a <code>regex</code> to see if the first name is either Eleanor Franklin and allow for a middle name inbetween the first and last name in a <code>string</code></p>
+  <pre>let myString = "Eleanor Roosevelt";</pre>
+  <h1>Solution 1 </h1>
+  <pre>let myRegex = /(Franklin\s.*|Eleanor\s.*)Roosevelt/</pre>
+  <h1>Solution 2</h1>
+  <pre>let myRegex = /(Franklin|Eleanor) (([A-Z]\.?|[A-Z][a-z]+) )?Roosevelt/;</pre>
+  <h1>Output</h1>
+  <pre>let result = myRegex.test(myString);
+  console.log(result);
+  // true</pre>      
+    </div>
+  </section>
+  <!--   Regex - Mixed Group /(a | b)/ -->    
+  
+    <section>
+      <h1 class="heading" id="#">Regex - Capture Groups</h1>
+      <div class="code-block">
+    <p>Capture groups can be used to find repeated substrings</p>
+    <pre>let repeatStr = "row row row your boat";</pre>
+    <p>Capture groups are constructed by enclosing the regex pattern to be captured in parentheses. In this case, the goal is to capture a word consisting of alphanumeric characters so the capture group will be <code>\w+</code> enclosed by parentheses: <code>/(\w+)/</code></p>
+    <p>The substring matched by the group is saved to a temporary "variable", which can be accessed within the same regex using a backslash and the number of the capture group (e.g. <code>\1</code>). Capture groups are automatically numbered by the position of their opening parentheses (left to right), starting at 1.</p>
+    <p>The example below matches a word that occurs thrice separated by spaces:</p>
+    <pre>let repeatRegex = /(\w+) \1 \1/;
+    
+  repeatRegex.test(repeatStr); // Returns true
+  repeatStr.match(repeatRegex); // Returns ["row row row", "row"]</pre>
+    <h1>Example</h1>
+    <p>Use capture groups in reRegex to match a string that consists of only the same number repeated exactly three times separated by single spaces.</p>
+    <pre>let repeatNum = "42 42 42";</pre>
+    <h1>Solution 1</h1>
+    <pre>let reRegex = /^(\d+)(\s)\1\2\1$/;</pre>
+    <h1>Solution 2</h1>
+    <pre>let reRegex = /^(\d+) \1 \1(?!.)/</pre>
+    <h1>Solution 3</h1>
+    <pre>let reRegex = /^(\d+) \1 \1$/;</pre>
+    <h1>Output</h1>
+    <pre>let x = reRegex.test(repeatNum);
+  console.log(x); // true ;
+  
+  If Str was "42 42 42 42" it would evaluate to be false</pre>      
+      </div>
+    </section>
+  <!--   Regex - Capture Groups -->    
+      
+    <section>
+      <h1 class="heading" id="#">Regex - Lookahead and Lookbehind</h1>
+      <div class="code-block">
+   <h1>Lookahead</h1>
+    <p>The syntax is: <code>X(?=Y)</code>, it means "look for <code>X</code>, but match only if followed by <code>Y</code>". There may be any pattern instead of <code>X</code> and <code>Y</code>.</p>
+    <p>For an integer number followed by <code>€</code>, the regexp will be <code>\d+(?=€)</code>:</p>
+    <pre>let str = "1 turkey costs 30€";
+  
+  alert( str.match(/\d+(?=€)/) ); // 30, the number 1 is ignored, as it's not followed by €</pre>
+    <p>More complex tests are possible, e.g. <code>X(?=Y)(?=Z)</code> means:</p>
+    <pre class="note">Find <code>X</code>.</pre>
+    <pre class="note">Check if <code>Y</code> is immediately after <code>X</code> (skip if isn’t).</pre>
+    <pre class="note">Check if <code>Z</code> is also immediately after <code>X</code> (skip if isn’t).</pre>
+    <pre  class="note">If both tests passed, then the <code>X</code> is a match, otherwise continue searching.</pre>
+    <pre class="note">IMPORTANT: This is only possible if patterns <code>Y</code> and <code>Z</code> aren’t mutually exclusive.</pre>
+    <p>For example, <code>\d+(?=\s)(?=.*30)</code> looks for <code>\d+</code> that is followed by a space <code>(?=\s)</code>, and there’s <code>30</code> somewhere after it <code>(?=.*30)</code>:</p>
+    <pre>let str = "1 turkey costs 30€";
+  
+  alert( str.match(/\d+(?=\s)(?=.*30)/) ); // 1</pre>
+    <h1>Lookbehind</h1>
+    <pre class="note">Note: Lookbehind is NOT supported in <code>non-V8 browsers</code>, such as <code>Safari</code>, <code>Internet Explorer</code>.</pre>
+    <p>Lookbehind is similar, but it looks behind. That is, it allows to match a pattern only if there’s something before it.</p>
+    <p>The syntax is:</p>
+    <p>Positive lookbehind: <code>(?<=Y)X</code>, matches <code>X</code>, but only if there’s <code>Y</code> before it.</p>
+      <pre>let str = "1 turkey costs $30";
+  
+  // the dollar sign is escaped \$
+  alert( str.match(/(?<=\$)\d+/) ); // 30 (skipped the sole number)</pre>      
+      </div>
+    </section>
+  <!--   Regex - Lookahead and Lookbehind -->
+    
+    <section>
+      <h1 class="heading" id="#">Regex - Quantity Specifiers</h1>
+      <div class="code-block">
+  <p>Recall that you use the plus sign <code>+</code> to look for one or more characters and the asterisk <code>*</code> to look for zero or more characters. These are convenient but sometimes you want to match a certain range of patterns.</p>
+    <p>You can specify the lower and upper number of patterns with <code>quantity specifiers</code>. <code>Quantity specifiers</code> are used with curly brackets <code>({ and })</code>. You put two numbers between the curly brackets - for the lower and upper number of patterns.</p>
+    <p>For example, to match only the letter a appearing between <code>3</code> and <code>5</code> times in the string ah, your regex would be <code>/a{3,5}h/</code>.</p>
+    <pre>let A4 = "aaaah";
+  let A2 = "aah";
+  let multipleA = /a{3,5}h/;
+  
+  multipleA.test(A4); // true
+  multipleA.test(A2); // false </pre>
+      </div>
+    </section>
+  <!--   Regex - Quantity Specifiers -->
+    
+    <section>
+      <h1 class="heading" id="#">Regex - Restrict Possible Usernames</h1>
+      <div class="code-block">
+  <h1>Rules</h1>
+    <p>Usernames can only use alpha-numeric characters.</p>
+    <p>The only numbers in the username have to be at the end. There can be zero or more of them at the end. Username cannot start with the number.</p>
+    <p>Username letters can be lowercase and uppercase.</p>
+    <p>Usernames have to be at least two characters long. A two-character username can only use alphabet letters as characters.</p>
+    <h1>Solution 1</h1>
+    <pre>let username = "JackOfAllTrades";
+  const userCheck = /^[a-z][a-z]+\d*$|^[a-z]\d\d+$/i;
+  
+  let result = userCheck.test(username);</pre>
+    <h1>Solution 2</h1>
+    <pre>let username = "JackOfAllTrades";
+  const userCheck = /^[a-z]([0-9]{2,}|[a-z]+\d*)$/i;
+  
+  let result = userCheck.test(username);</pre>      
+      </div>
+    </section>
+  <!--   Regex - Restrict Possible Usernames -->
+    
+    <section>
+      <h1 class="heading" id="#">Regex - Greedy and Lazy Matching</h1>
+      <div class="code-block">
+  <p>You can apply the regex <code>/t[a-z]*i/</code> to the string <code>"titanic"</code>. This regex is basically a pattern that starts with <code>t</code>, ends with <code>i</code>, and has some letters in between.</p>
+    <p>Regular expressions are by default <code>greedy</code>, so the match would return <code>["titani"]</code>. It finds the largest sub-string possible to fit the pattern.</p>
+    <p>However, you can use the <code>?</code> character to change it to lazy matching. <code>"titanic"</code> matched against the adjusted regex of <code>/t[a-z]*?i/</code> returns <code>["ti"]</code>.</p>
+    <h1>Greedy (Default)</h1>
+   <pre>let text = "Winter is coming";
+  let myRegex = /W.*i/;
+  
+  let result = text.match(myRegex);
+  // [ 'Winter is comi' ]</pre>
+    <h1>Lazy</h1>
+    <pre>let text = "Winter is coming";
+  let myRegex = /W.*?i/;
+  
+  let result = text.match(myRegex);
+  // [ 'Wi' ]</pre>      
+      </div>
+    </section>
+  <!--   Regex - Greedy and Lazy Matching -->
+   
+    <section>
+      <h1 class="heading" id="#">Regex - Special Characters</h1>
+      <div class="code-block">
+  <h1>WildCard Character . </h1>
+    <p>The wildcard character <code>.</code> will match any one character. The wildcard is also called <code>dot</code> and <code>period</code>. You can use the wildcard character just like any other character in the regex. For example, if you wanted to match <code>hug</code>, <code>huh</code>, <code>hut</code>, and <code>hum</code>, you can use the regex <code>/hu./</code> to match all four words.</p>
+    <pre>let humStr = "I'll hum a song";
+  let hugStr = "Bear hug";
+  let huRegex = /hu./;
+  
+  huRegex.test(humStr); //OUTPUT: true
+  huRegex.test(hugStr); //OUPUT: true</pre>
+    
+    <h1>Character Classes</h1>
+    <p>You can search for a literal pattern with some flexibility with character classes. Character classes allow you to define a group of characters you wish to match by placing them inside square (<code>[</code> and <code>]</code>) brackets.</p>
+    For example, you want to match <code>bag</code>, <code>big</code>, and <code>bug</code>but not <code>bog</code>. You can create the regex <code>/b[aiu]g/</code> to do this. The <code>[aiu]</code> is the character class that will only match the characters <code>a</code>, <code>i</code>, or <code>u</code>.
+    <pre>let bigStr = "big, bag, apple, and bugs, and bog";
+  let bgRegex = /b[aiu]g/g;
+  
+  let x = bigStr.match(bgRegex);
+  console.log(x);
+  </pre>
+    <h1>Output</h1>
+    <pre>["big","bag","bug"]</pre>
+    
+    <p>Inside a character set, you can define a range of characters to match using a hyphen character: <code>-</code>.</p>
+    <pre>
+  let quoteSample = "The quick brown fox jumps over the lazy dog.";
+  let alphabetRegex = /[a-z]/gi;
+  
+  let result = quoteSample.match(alphabetRegex);
+  console.log(result);</pre>
+    <h1>Output</h1>
+  <pre>[ 'T',
+    'h',
+    'e',
+    'q',
+    'u',
+    'i',
+  ...
+    'z',
+    'y',
+    'd',
+    'o',
+    'g' ]</pre>
+    <p>To create a negated character set, you place a caret character (<code>^</code>) after the opening bracket and before the characters you do not want to match</p>
+    <pre>let quoteSample = "The quick brown fox jumps over the lazy dog.";
+  let alphabetRegex = /[^a-z]/gi;
+  
+  let result = quoteSample.match(alphabetRegex);
+  console.log(result);</pre>
+    <h1>Output</h1>
+    <pre>[ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '.' ]</pre>      
+      </div>
+    </section>
+  <!--   Regex - Special Characters -->
+      
+    <section>
+      <h1 class="heading" id="#">Regex - Match Method</h1>
+      <div class="code-block">
+  <h1>Match Method</h1>
+    <p>Syntax:</p>
+    <pre class="flag">'string'.match(/regex/);</pre>
+    
+   <h1>Example</h1>
+  <pre>let str = "Extract the word 'coding' from this string.";
+  let codingRegex = /coding/;
+  
+  let result = str.match(codingRegex);
+  console.log(result);</pre>
+    <h1>Output</h1>
+  <pre>[ 'coding',
+    index: 18,
+    input: 'Extract the word \'coding\' from this string.',
+    groups: undefined ]</pre>
+    <pre class="note">Note: The output for the <code>.match()</code> method includes additional details such as <code>index</code>, <code>input</code>, and <code>groups</code>. They can be accessed like this way: <code>result.index</code>.</pre>
+    <h1>Flag -g to match  repeating patterns</h1>
+    <pre class="flag">Example Without -g</pre>
+    <pre>let testStr = "Repeat, Repeat, Repeat";
+  let ourRegex = /Repeat/;
+  
+  testStr.match(ourRegex);</pre>
+    <h1>Output</h1>
+    <pre>["Repeat"]</pre>
+    <pre class="flag">With -g</pre>
+    <pre>let repeatRegex = /Repeat/g;
+  testStr.match(repeatRegex);</pre>
+    <h1>Output</h1>
+    <pre>["Repeat", "Repeat", "Repeat"]</pre>
+      </div>
+    </section>
+  <!--   Regex - Match Method --> 
+  
+    <section>
+      <h1 class="heading" id="#">Regex - Test Method</h1>
+      <div class="code-block">
+  <h1>Regex</h1>
+    <p>Regular expressions or <code>Regex</code> are used in programming languages to match parts of strings.</p>
+    <p>JavaScript has multiple ways to use regexes. One way to test a regex is using the <code>.test()</code> method. The <code>.test()</code> method takes the regex, applies it to a string in this syntax <code>Regex.test(string)</code>, and returns <code>true</code> or <code>false</code> if appears in the string.
+      <h1>Test Method</h1>
+    <pre class="note">/regex/.test('string');</pre>
+    <h1>Example</h1>
+    <pre>let testStr = "I like freeCodeCamp";
+  let testRegex = /Code/;
+  
+  testRegex.test(testStr); // true</pre>
+    <h1>Example 2</h1>
+    <p class="note">Any other forms of <code>Code</code> will not match. In the example, the regex <code>/code/</code> will not match <code>Code</code> or <code>CODE</code></p>
+    <pre>let wrongRegex = /code/;
+    
+  wrongRegex.test(testStr); // false</pre>
+    
+    <h1>- i Flag: Changing Case sensitivity</h1>
+    <p>You can match both cases using what is called a flag. There are other flags but here you'll focus on the flag that ignores case - the <code>i</code> flag. You can use it by appending it to the regex. An example of using this flag is <code>/ignorecase/i</code>. This regex can match the strings <code>INGORECASE</code>, <code>igNoreCase</code>, and <code>IgnoreCase</code>.</p>
+    <pre>let testStr = "freeCodeCamp.";
+  let testRegex = /freecodecamp/<strong>i</strong>;
+  
+  testRegex.test(testStr); // true
+  </pre>
+    
+    <h1>Multiple Pattern Searches</h1>
+    <p>This is powerful to search single strings, but it's limited to only one pattern. You can search for multiple patterns using the <code>alternation</code> or <code>OR</code> operator: <code>|</code></p>
+    <pre>let petString = "James has a pet cat.";
+  let petRegex = /cat|dog|bird|fish/;
+  let result = petRegex.test(petString);</pre>      
+      </div>
+    </section>
+  <!--   Regex - Test Method -->    
+      
+    <section>
+      <h1 class="heading" id="#">Promises</h1>
+      <div class="code-block">
+        
+    <h1>Promises</h1>
+    <p>A promise in JavaScript is exactly what it sounds like - you use it to make a promise to do something, usually asynchronously. When the task completes, you either fulfill your promise or fail to do so.</p> 
+    <p>A <code>Promise</code> is a <code><strong>constructor function</strong></code>, so you need to use the <code>new</code> keyword to create one. It takes a function, as its argument, with two parameters - <code>resolve</code> and <code>reject</code>. These are methods used to determine the outcome of the promise. The syntax looks like this:</p>
+    
+    <pre>const makeServerRequest = new Promise((resolve, reject) => {</pre>
+    <pre class="note"><code>responseFromServer</code> is set to <code>false</code> to represent an unsuccessful response from a server</pre>
+    <pre>let responseFromServer = false;
+      
+    if(responseFromServer) {
+      resolve("We got the data");
+    } else {  
+      reject("Data not received");
+    }
+  });</pre>
+  
+  <pre>makeServerRequest.then(result => {
+    console.log(result);
+  });</pre>
+  
+  <pre>makeServerRequest.catch(error => {
+    console.log(error);
+  })</pre>
+  
+  <pre>makeServerRequest; // Data not received</pre>
+    <pre class="note">If <code>responseFrome Server</code> was set to <code>true</code> the below code would ouput this instead:</pre>
+    <pre>makeServerRequest; // We got the data</pre>
+      </div>
+    </section>
+  <!--   Promises -->
+    
+    <section>
+      <h1 class="heading" id="#">ES6 - Constructor Function</h1>
+      <div class="code-block">
+  <p>ES6 provides a new syntax to create objects, using the <code>class</code> keyword.</p>
+  <p>It should be noted that the class syntax is just syntax, and not a full-fledged class-based implementation of an object-oriented paradigm, unlike in languages such as Java, Python, Ruby, etc.</p>
+  <p>In ES5, an object can be created by defining a <code>constructor</code> function and using the <code>new</code> keyword to instantiate the object.</p>
+    
+  <p>In ES6, a <code>class</code> declaration has a <code>constructor</code> method that is invoked with the <code>new</code> keyword. If the <code>constructor</code> method is not explicitly defined, then it is implicitly defined with no arguments.</p>
+  <h1>Explicit constructor</h1>
+    <pre>class SpaceShuttle {
+    constructor(targetPlanet) {
+      this.targetPlanet = targetPlanet;
+    }
+    takeOff() {
+      console.log("To " + this.targetPlanet + "!");
+    }
+  }</pre>
+  <h1>Implicit constructor </h1>
+    <pre>class Rocket {
+    launch() {
+      console.log("To the moon!");
+    }
+  }</pre>  
+  <h1>Output</h1>
+    <pre>const zeus = new SpaceShuttle('Jupiter');
+  // prints To Jupiter! in console
+  zeus.takeOff();
+  
+  const atlas = new Rocket();
+  // prints To the moon! in console
+  atlas.launch();</pre>        
+      </div>
+    </section>
+  <!--   ES6 - Constructor Function -->
+    
+    <section>
+      <h1 class="heading" id="#">Factory vs Constructor Function</h1>
+      <div class="code-block">
+  <h1>Factory Function</h1>
+    <pre>function createCircle(radius) {
+      return {
+        radius,
+        draw() {
+          console.log('draw');
+        }
+      };
+    }</pre>
+    <pre>const myCircle = createCircle(1);</pre>
+    <h1>Constructor Function</h1>
+    <pre>function Circle(raduis) {
+      this.radius = radius;
+      this.draw = function() {
+        console.log('draw');
+      };
+    }</pre>
+    <pre>const circle = new Circle(1);</pre>
+  
+    <p>The point both of these functions is to create new objects.</p>
+    <p>Both types of functions are valid and work the same. The constrcutor function models other progamming languages like C sharp or Java. However if you have only coded in Javascript the factory function may be more familiar.</p>
+    <p>Click <a href="https://www.youtube.com/watch?v=23AOrSN-wmI" target="_blank">link</a> to view video</p>      
+      </div>
+    </section>
+  <!--   Factory vs Constructor Function -->
+    
+    <section>
+      <h1 class="heading" id="#">ES6 vs ES5 Declarative Functions </h1>
+      <div class="code-block">
+  <h1>ES5</h1>
+    
+    <pre>const person = {
+      name: "Taylor",
+      sayHello: function() {
+        return `Hello! My name is ${this.name}.`;
+      }
+    };</pre>
+    
+    <h1>ES6</h1>
+    
+    <pre>const person = {
+      name: "Taylor",
+      sayHello() {
+        return `Hello! My name is ${this.name}.`;
+      }
+    };</pre>      
+      </div>
+    </section>
+  <!--   ES6 vs ES5 Declarative Functions -->
+   
+    <section>
+      <h1 class="heading" id="#">Template Literals</h1>
+      <div class="code-block">
+  <h1>Template Literals</h1>
+    <p>strings are written inside backsticks - <code>`</code> and <code>`</code></p>
+    <p>variables are inserted using this format - <code>${ <i>insertVariableHere</i> }</code></p>
+    <h1>Example:</h1>
+    <pre>const person = {
+      name: "Zodiac Hasbro",
+      age: 56
+    };</pre>
+  
+    <pre>const greeting = `Hello, my name is ${person.name}!
+    I am ${person.age} years old.`;</pre>      
+      </div>
+    </section>
+  <!--   Template Literals -->
+      
+    <section>
+      <h1 class="heading" id="#">Recursion - Count Up Array</h1>
+      <div class="code-block">
+  <h1>Break down of using recrusion to return an array of numbers counting up</h1>
+  <pre>function countUp(n) {
+    if (n == 0) {
+      return [];
+    } else {
+      let arr = countUp(n - 1);
+      arr.push(n);
+      return arr;
+    }
+  
+  };
+  let x = countUp(5);
+  
+  console.log(x) // [1,2,3,4,5]</pre>
+  
+  <h1>Call Stack</h1>
+  
+  <pre class="note">// countUp(5)
+  // arr = (countUp(4))
+  // arr.push(5)
+  // n now - 5 future - 4
+  
+  //     countUp(4)
+  //     arr = (countUp(3))
+  //     arr.push(4)
+  // n now - 4 future - 3
+  
+  //       countUp(3)
+  //       arr = (countUp(2))
+  //       arr.push(3)
+  // n now - 3 future - 2
+  
+  //         countUp(2)
+  //         arr = (countUp(1))
+  //         arr.push(2)
+  // n now - 2 future - 1
+  
+  //           countUp(1)
+  //           arr = (countUp(0))
+  //           arr.push(1)
+  // n now - 1 future - 0
+  
+  //              countUp(0)
+  //              (if - condition met)</pre>
+  
+  <h1>Solving</h1>
+  
+  <pre class="note">//              countUp(0)
+  //              arr = []
+  
+  //           countUp(0) = []
+  //           arr = []
+  //           arr.push(1)
+  //           countUp(1) = [1]
+  
+  //         countUp(1) = [1]
+  //         arr = [1])
+  //         arr.push(2)
+  //         countUp(2) = [1,2]
+  
+  //       countUp(2) = [1,2]
+  //       arr = [1,2]
+  //       arr.push(3)
+  //       countUp(3) = [1,2,3]
+  
+  //     countUp(3) = [1,2,3]
+  //     arr = [1,2,3]
+  //     arr.push(4)
+  //     countUp(4) = [1,2,3,4]
+  
+  // countUp(4) = [1,2,3,4]
+  // arr = [1,2,3,4])
+  // arr.push(5)
+  // countUp(5) = [1,2,3,4,5]</pre>
+  
+  <h1>Output</h1>
+  
+  <pre>// [1,2,3,4,5]</pre>      
+      </div>
+    </section>
+  <!--   Recursion - Count Up Array -->       
+  
+    <section>
+      <h1 class="heading" id="#">Record Collection Algorithm</h1>
+      <div class="code-block">
+   <h1>Rules</h1>
+  <p>If <code>prop</code> isn't <code>tracks</code> and <code>value</code> isn't an empty string, update or set that album's <code>prop</code> to <code>value</code>.</p>
+  
+  <p>If <code>prop</code> is <code>tracks</code> but the album doesn't have a <code>tracks</code> property, create an empty array and add <code>value</code> to it.</p>
+  
+  <p>If <code>prop</code> is <code>tracks</code> and <code>value</code> isn't an empty string, add <code>value</code> to the end of the album's existing <code>tracks</code> array.</p>
+  
+  <p>If <code>value</code> is an empty string, <code>delete</code> the given property from the album.</p>
+  <pre>const recordCollection = {
+    2548: {
+      albumTitle: 'Slippery When Wet',
+      artist: 'Bon Jovi',
+      tracks: ['Let It Rock', 'You Give Love a Bad Name']
+    },
+    2468: {
+      albumTitle: '1999',
+      artist: 'Prince',
+      tracks: ['1999', 'Little Red Corvette']
+    },
+    1245: {
+      artist: 'Robert Palmer',
+      tracks: []
+    },
+    5439: {
+      albumTitle: 'ABBA Gold'
+    }
+  };</pre>
+  
+  <h1>Solution</h1>
+  <pre>function updateRecords(records, id, prop, value) {
+  
+   let album = records[id]
+  
+   if (value == "") {
+     delete album[prop];
+   } else if (prop !== "tracks") {
+     album[prop] = value;
+   } else {
+     <i><strong>//short circuit expression</strong></i>
+     album[prop] = album[prop] || [];
+     album[prop].push(value);
+   }
+   return records;
+  }</pre>
+  
+  <h1>Output</h1>
+  <pre>let x = updateRecords(recordCollection, 5439, 'tracks', 'ABBA');
+  console.log(x);</pre>
+  
+  <pre class="note">const recordCollection = {
+    2548: {
+      albumTitle: 'Slippery When Wet',
+      artist: 'Bon Jovi',
+      tracks: ['Let It Rock', 'You Give Love a Bad Name']
+    },
+    2468: {
+      albumTitle: '1999',
+      artist: 'Prince',
+      tracks: ['1999', 'Little Red Corvette']
+    },
+    1245: {
+      artist: 'Robert Palmer',
+      tracks: []
+    },
+    5439: {
+      albumTitle: 'ABBA Gold';
+      tracks = 'ABBA'
+    }
+  };</pre>      
+      </div>
+    </section>
+  <!--   Record Collection Algorithm --> 
+  
+    <section>
+      <h1 class="heading" id="#">Recursion - Summing Numbers</h1>
+      <div class="code-block">
+  <h1>Sum Array Function using Recursion</h1>
+  <pre>function sum(arr, n) {
+  
+    if (n < 0 || n > arr.length) {
+      return "error";
+    } else if (n === 0 ) {
+      return 0;
+    } else {
+      return sum(arr, n - 1) + arr[n - 1];
+    }
+  
+  }
+  
+  let x = sum([4, 2, 10], 3);
+  console.log(x);</pre>
+  
+  <h1>Call Stack</h1>
+  <p>The function is saying in other words keep calling the function at <code>( n - 1)</code> increment until <code>n</code> reaches <code>0</code>...</p>
+  <pre class="note">n = 3 >> sum(arr, 3);
+  sum(arr, 2) + arr[2];
+  
+  n = 2 >> sum(arr, 2);
+  sum(arr, 1) + arr[1];
+  
+  n = 1 >> sum(arr, 1);
+  sum(arr, 0) + arr[0];
+  
+  n = 0 >> the if-condition is met and the recursion ends...</pre>
+  
+  <h1>Solving</h1>
+  <p><code>n</code> has reached <code>0</code> and the functions can begin returning start with function directly preceding <code>sum(arr, 0)</code>
+  </p>
+  <pre class="note">sum(arr, 0)...
+      if-condition returns 0;
+  = 0
+  
+  sum(arr, 1)...
+      sum(arr, 0) + arr[0]; 
+      //  sum(arr, 0) = 0    //   arr[0] = 4
+      0 + 4;  
+  = 4 
+  
+  sum(arr, 2)...
+      sum(arr, 1) + arr[1];
+      //  sum(arr, 1) = 4    //    arr[1] = 2
+      4 + 2
+  = 6
+  
+  sum(arr, 3)...
+      sum(arr, 2) + arr[2];
+      //  sum(arr, 2) = 4   //     arr[2] = 10
+      6 + 10
+  = 16</pre> 
+  
+  <h1>Output</h1>
+  
+  <pre>16</pre>      
+      </div>
+    </section>
+  <!--   Recursion - Summing Numbers -->    
+      
+    <section>
+      <h1 class="heading" id="#">Profile Look Up Algorithm</h1>
+      <div class="code-block">
+  <h1>Set Up</h1>
+  <pre>
+  const contacts = [
+    {
+      firstName: "Akira",
+      lastName: "Laine",
+      number: "0543236543",
+      likes: ["Pizza", "Coding", "Brownie Points"],
+    },
+    {
+      firstName: "Harry",
+      lastName: "Potter",
+      number: "0994372684",
+      likes: ["Hogwarts", "Magic", "Hagrid"],
+    },
+    {
+      firstName: "Sherlock",
+      lastName: "Holmes",
+      number: "0487345643",
+      likes: ["Intriguing Cases", "Violin"],
+    },
+    {
+      firstName: "Kristian",
+      lastName: "Vos",
+      number: "unknown",
+      likes: ["JavaScript", "Gaming", "Foxes"],
+    },
+  ];</pre>
+  
+  <h1>Function</h1>
+  <pre>function lookUpProfile(name, prop) {
+  
+    let result = contacts.filter( x => x.firstName == name)
+  
+    if (result.length === 0) {
+      return "No such contact";
+    } else {
+      return result[0][prop] ? result[0][prop] : "No such property";
+    }
+  
+  }</pre>
+        
+  <h1>Output</h1>
+  
+  <pre>let answer = lookUpProfile("Akira", "likes");
+  console.log(answer);
+  
+  // [ 'Pizza', 'Coding', 'Brownie Points' ]</pre>      
+      </div>
+    </section>
+  <!--   Profile Look Up Algorithm -->
+    
+    <section>
+      <h1 class="heading" id="#">Math.random()</h1>
+      <div class="code-block">
+  <h1>Math.Random() of a Range</h1>
+  <pre>function randomRange(min, max) {
+  
+    return Math.floor(Math.random() * (max - min + 1) + min);
+    
+  }</pre>       
+      </div>
+    </section>
+  <!--   Math.random() -->
+    
+    <section>
+      <h1 class="heading" id="#">Ternary Operator</h1>
+      <div class="code-block">
+  <h1>If Statement</h1>
+    <pre>function checkSign(num) {
+      if (num === 0) {
+        return "zero";
+      } else if (num > 0) {
+        return "positive";
+      } else {
+        return "negative";
+      };
+   }</pre>
+    <h1>Ternary Operator</h1>
+    <pre>function checkSign(num) {
+      return (num == 0) ? "zero" : (num > 0) ? "positive" : "negative";
+   }</pre>
+    <h1>Output</h1>
+    <pre>let x = checkSign(10);
+    console.log(x);
+    
+  // positive</pre>      
+      </div>
+    </section>
+  <!--   Ternary Operator -->
+    
+    <section>
+      <h1 class="heading" id="#">Recursion - Call Stack</h1>
+      <div class="code-block">
+  <h1>Recursion Call Stack Demonstrated using Console.log</h1>
+  
+  <pre>function cd(num) {
+  
+    if (num <= 0) {
+      console.log("All done!");
+      return;
+    } else {
+    console.log(num);
+    num--;
+    cd(num);
+    }
+    
+  }
+  cd(5);</pre>
+  
+  <h1>Output</h1>
+  
+  <pre>5
+  4
+  3
+  2
+  1
+  "All done!"</pre>      
+      </div>
+    </section>
+  <!--   Recursion - Call Stack Demostrated-->
+   
+    <section>
+      <h1 class="heading" id="#">Recursion - Count Down Solutions</h1>
+      <div class="code-block">
+  <h1>Rule</h1>
+    <p>Return an array that counts down from a given number using recursion</p>
+    <h1>Solution 1</h1>
+    <pre>function countdown(n) {
+      if (n < 1) {
+        return [];
+      } else {
+        const arr = countdown(n - 1);
+        arr.unshift(n);
+        return arr;
+      }
+    }</pre>
+    <br>
+    <h1>Solution 2</h1>
+  
+    <pre>function countdown(n) {
+      if (n < 1) {
+        return [];
+      } else {
+        const arr = countdown(n - 1);
+        arr.splice(0, 0, n);
+        return arr;
+      }
+    }</pre>
+    <br>
+    <h1>Solution 3</h1>
+  
+    <pre>function countdown(n){
+       return n < 1 ? [] : [n].concat(countdown(n - 1));
+    }</pre>
+    <br>
+    <h1>Solution 4</h1>
+  
+    <pre>function countdown(n){
+       return n < 1 ? [] : [n, ...countdown(n - 1)];
+    }</pre>      
+      </div>
+    </section>
+  <!--   Recursion - Count Down Solutions -->
+      
+    <section>
+      <h1 class="heading" id="#">Recursion - Range of Numbers Solutions </h1>
+      <div class="code-block">
+      <h1>Rules</h1>
+      <p>Return a range of numbers in an array from the starting input value to the ending input value using recursion</p>
+  <h1>Solution 1</h1>
+  <pre>function countdown(n) {
+    if (n < 1) {
+      return [];
+    } else {
+      const arr = countdown(n - 1);
+      arr.unshift(n);
+      return arr;
+    }
+  }</pre>
+  <br>
+  <h1>Solution 2</h1>
+  
+  <pre>function rangeOfNumbers(startNum, endNum) {
+    if (endNum < startNum) {
+      return [];
+    } else {
+      const numbers = rangeOfNumbers(startNum, endNum - 1);
+      numbers.push(endNum);
+      return numbers;
+    }
+  }</pre>
+  <br>
+  <h1>Solution 3</h1>
+  
+  <pre>function rangeOfNumbers(startNum, endNum) {
+    return endNum < startNum
+      ? []
+      : [...rangeOfNumbers(startNum, endNum - 1), endNum];
+  }</pre>      
+      </div>
+    </section>
+  <!--   Recursion - Range of Numbers Solutions -->   
+      
+    <section>
+      <h1 class="heading" id="#">Spread Operator</h1>
+      <div class="code-block">
+  <h1>ES5</h1>
+    <p>The ES5 code below uses <code>apply()</code> to compute the maximum value in an array:</p>
+  
+    <pre>var arr = [6, 89, 3, 45];
+  var maximus = Math.max.apply(null, arr);
+  
+  console.log(maximus);
+  // 89</pre>
+    <p>We had to use <code>Math.max.apply(null, arr)</code> because <code>Math.max(arr</code> returns <code>NaN</code>. <code>Math.max()</code> expects comma-separated arguments, but not an array.</p>
+    
+    <h1>ES6: Spread Operator</h1>
+    <p>The spread operator makes this syntax much better to read and maintain.</p>
+    <pre>const arr = [6, 89, 3, 45];
+  const maximus = Math.max(...arr);
+    
+  console.log(maximus);
+  // 89</pre>      
+      </div>
+    </section>
+  <!--   Spread Operator -->
+    
+    <section>
+      <h1 class="heading" id="#">Rest Parameters</h1>
+      <div class="code-block">
+  <h1>ES5</h1>
+    <p>A specified number of arguments have to be used.</p>
+    <pre>const sum = (x, y, z) => {
+      const args = [x, y, z];
+      return args.reduce((a, b) => a + b, 0);
+    }</pre>
+  
+    <h1>ES6: Rest Parameter</h1>
+    <p>Using the <code>rest parameter</code> a function can take an unspecified number of arguments.</p>
+    <pre>const sum = (...args) => {
+      return args.reduce((a, b) => a + b, 0)
+    }</pre>      
+      </div>
+    </section>
+  <!--   Rest Parameters -->
+    
+    <section>
+      <h1 class="heading" id="#">ES6 - Destructoring Assignment Nested Objects</h1>
+      <div class="code-block">
+  <pre>const user = {
+      johnDoe: { 
+        age: 34,
+        email: 'johnDoe@freeCodeCamp.com'
+      }
+    };</pre>
+    <h1>ES5</h1>
+    <pre>const age = user.JohnDoe.age
+    const email = user.JohnDoe.email</pre>
+    <pre>const userAge = user.JohnDoe.age
+    const userEmail = user.JohnDoe.email</pre>
+    <h1>ES6: Destructuring Assignment</h1>
+    <pre>const { johnDoe: { age, email }} = user;</pre>
+    <pre>const { 
+      johnDoe: { 
+        age: userAge, 
+        email: userEmail 
+      }
+    } = user;</pre>
+    <h1>Additional Example</h1>
+    <pre>const LOCAL_FORECAST = {
+    yesterday: { low: 61, high: 75 },
+    today: { low: 64, high: 77 },
+    tomorrow: { low: 68, high: 80 }
+  };</pre>
+    <h1>ES5</h1>
+    <pre>const lowToday = LOCAL_FORECAST.today.low;
+  const lowYesterday = LOCAL_FORECAST.yesterday.low;</pre>
+    <h1>ES6</h1>
+    <pre>const {
+    today: {
+      low: lowToday
+    },
+    yesterday: {
+      low: lowYesterday
+    }
+  } = LOCAL_FORECAST;</pre>
+    <h1>Output</h1>
+    <pre>console.log(lowToday) // 64
+  console.log(lowYesterday) //61</pre>      
+      </div>
+    </section>
+  <!--   ES6 Destructoring Assignment Nested Objects -->
+   
+    <section>
+      <h1 class="heading" id="#">ES6 Destructoring Assignment as Function Parameters</h1>
+      <div class="code-block">
+  <pre>const profileUpdate = (profileData) => {
+      const { name, age, nationality, location } = profileData;
+  
+  }</pre>
+    <p>This effectively destructures the object sent into the function. This can also be done in-place:</p>
+    <pre>const profileUpdate = ({ name, age, nationality, location }) => {
+  
+  }</pre>
+    <p>When <code>profileData</code> is passed to the above function, the values are destructured from the function parameter for use within the function.</p>
+    <h1>Additional example:</h1>
+    <pre>const stats = {
+      max: 56.78,
+      standard_deviation: 4.34,
+      median: 34.54,
+      mode: 23.87,
+      min: -0.75,
+      average: 35.85
+    };</pre>
+    <p>Without Destructing Assignement</p>
+    <pre>const half = (stats) => (stats.max + stats.min) / 2.0; </pre>
+    <p>Destructuring Assignment</p>
+    <pre>const half = ({max, min}) => (max + min) / 2.0;</pre>      
+      </div>
+    </section>
+  <!--    ES6 Destructoring Assignment as Function Parameters -->
+      
+    <section>
+      <h1 class="heading" id="#">ES6 Destructuring Arrays</h1>
+      <div class="code-block">
+  <p>ES6 makes destructuring arrays as easy as destructuring objects.</p>
+  <p>One key difference between the <code>spread operator</code> and <code>array destructuring</code> is that the spread operator unpacks all contents of an array into a comma-separated list. Consequently, you cannot pick or choose which elements you want to assign to variables.</p>
+  <p>Destructuring an array lets us do exactly that:</p>
+  <pre>const [a, b] = [1, 2, 3, 4, 5, 6];
+  console.log(a, b);</pre>
+  <pre>output: 1, 2</pre>
+  
+  <p>We can also access the value at any index in an array with destructuring by using commas to reach the desired index:</p>
+  <pre>const [a, b,,, c] = [1, 2, 3, 4, 5, 6];
+  console.log(a, b, c);</pre>
+  <pre>output: 1, 2, 5</pre>
+  
+  <h1>Small Algorithm</h1>
+  <pre>let a = 8, b = 6;</pre>
+  <p>Set <code>a = b</code> and <code>b = a</code> using ES6 destructuring Assignment</p>
+  <h1>Solution</h1>
+  <pre>[a, b] = [b, a];
+  console.log(a, b) // 6, 8</pre>
+  <h1>Additional Notes</h1>
+  <p>This helps resolve ES5 limitation. Consider this ES5 solution</p>
+  <pre>a = b;
+  b = a;
+  console.log(a, b) // 6, 6</pre>
+  <p>Uh oh the <code>b</code> value was set to <code>6</code> and not <code>8</code> because the <code>a</code> value was changed</p>
+  <p>Lets say that for this situation, you cannot assign the equivalent number so the variables can only be changed by assigning them to another variable. In this scenario the solution in ES5 would be...</p>
+  <pre>let aStored  = a;
+  a = b;
+  b = aStored
+  console.log(a, b) // 6, 8</pre>
+  <p>In summary the usefulness of ES6 asignment is that the values can be switched easily without the fault of a variable swtiching earlier during the whole procedure</p>      
+      </div>
+    </section>
+  <!--   ES6 Destructuring Arrays --> 
+  
+    <section>
+      <h1 class="heading" id="#">ES6 Destructuring Objects</h1>
+      <div class="code-block">
+  <p><i>Destructuring assignment</i> is special syntax introduced in ES6, for neatly assigning values taken directly from an object.</p>
+    <h1>Consider the following ES5 code:</h1>
+    <pre>const user = { name: 'John Doe', age: 34 };
+  
+    const name = user.name;
+    const age = user.age;</pre>
+    <p><code>name</code> would have a value of the string <code>John Doe</code>, and <code>age</code> would have the number <code>34</code>.</p>
+    <h1>The equivalent assignment statement using the ES6 destructuring syntax:</h1>
+    <pre>const { name, age } = user;</pre>
+  
+    <p><i>Destructuring assignment</i> is special syntax introduced in ES6, for neatly assigning values taken directly from an object.</p>
+    <h1>Consider the following ES5 code:</h1>
+    <pre>const user = { name: 'John Doe', age: 34 };
+  
+    const userName = user.name;
+    const userAge = user.age;</pre>
+    <p><code>userName</code> would have a value of the string <code>John Doe</code>, and <code>userAge</code> would have the number <code>34</code>.</p>
+    <h1>The equivalent assignment statement using the ES6 destructuring syntax:</h1>
+    <pre>const { name: userName, age: userAge } = user;</pre>     
+      </div>
+    </section>
+  <!--   ES6 Destructuring Objects -->
+  <div class="temporary-holder-close">
+    
+    <section>
+      <h1 class="heading" id="#">Title</h1>
+      <div class="code-block">
+        
+      </div>
+    </section>
+  <!--   Title -->
+   
+    <section>
+      <h1 class="heading" id="#">Title</h1>
+      <div class="code-block">
+        
+      </div>
+    </section>
+  <!--   Title -->
+      
+    <section>
+      <h1 class="heading" id="#">Title</h1>
+      <div class="code-block">
+        
+      </div>
+    </section>
+  <!--   Title --> 
+  
+    <section>
+      <h1 class="heading" id="#">Title</h1>
+      <div class="code-block">
+        
+      </div>
+    </section>
+  <!--   Title -->
+   
+    <section>
+      <h1 class="heading" id="#">Title</h1>
+      <div class="code-block">
+        
+      </div>
+    </section>
+  <!--   Title -->
+      
+    <section>
+      <h1 class="heading" id="#">Title</h1>
+      <div class="code-block">
+        
+      </div>
+    </section>
+  <!--   Title -->  
+  
+    <section>
+      <h1 class="heading" id="#">Title</h1>
+      <div class="code-block">
+        
+      </div>
+    </section>
+  <!--   Title -->
+   
+    <section>
+      <h1 class="heading" id="#">Title</h1>
+      <div class="code-block">
+        
+      </div>
+    </section>
+  <!--   Title -->
+      
+    <section>
+      <h1 class="heading" id="#">Title</h1>
+      <div class="code-block">
+        
+      </div>
+    </section>
+  <!--   Title --> 
+  
+    <section>
+      <h1 class="heading" id="#">Title</h1>
+      <div class="code-block">
+        
+      </div>
+    </section>
+  <!--   Title -->
+   
+    <section>
+      <h1 class="heading" id="#">Title</h1>
+      <div class="code-block">
+        
+      </div>
+    </section>
+  <!--   Title -->
+      
+    <section>
+      <h1 class="heading" id="#">Title</h1>
+      <div class="code-block">
+        
+      </div>
+    </section>
+  <!--   Title -->  
+  </div>
+  </main>
+</body>
+</html>

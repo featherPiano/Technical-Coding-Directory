@@ -1,0 +1,85 @@
+*, ::after, ::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: whitesmoke;
+  font-family: sans-serif;
+  color: navy;
+  line-height: 1.3;
+}
+header {
+  display: none;
+}
+header .toggle i{
+  font-size: 2.5rem;
+}
+main {
+  width: 95%;
+  margin: 0 auto;
+  max-width: 1000px;
+}
+section {
+  margin: 2rem 0;
+}
+.heading {
+  text-align: center;
+  color: white;
+  background: #08083a;
+  padding: 1.2rem;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+}
+.code-block {
+  background-color: #e5e7eb;
+  padding: 1rem;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+}
+.code-block h1 {
+  font-weight: 400;
+  width: 97%;
+  margin: auto;
+}
+.code-block p {
+  margin: .5rem auto;
+  width: 95%;
+  line-height: 1.6;
+}
+.code-block li {
+  margin: .5rem auto;
+  width: 87%;
+  line-height: 1.4;
+}
+.code-block pre {
+  background-color: #fdfeff;
+  width: 90%;
+  margin: 15px auto;
+  padding: 5px 7px;
+  border-radius: 3px;
+  font-size: 1.1rem;
+  white-space: pre-wrap;
+}
+.code-block pre.flag {
+  background-color: #f1d4d9;
+  color: #91525e;
+  width: 94%;
+}
+.code-block pre.note {
+  background-color: #b7cac4;
+  color: #2a5343;
+  width: 87%;
+}
+.code-block code {
+  padding: 1px 3px;
+  margin: 2px;
+  font-size: 1rem;
+  color: black;
+  background-color: #f3f5fa;
+  border-radius: 3px;
+}
+.temporary-holder-close {
+  display: none;
+}

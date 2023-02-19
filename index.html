@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+
   <header>
     <nav class="menu">
       <ul class="list">
@@ -23,12 +24,160 @@
       <div class="toggle"><i class="fa-solid fa-bars-staggered"></i></div>
     </nav>
   </header>
+
   <main>
     <header>
-      <h1>Technical Document</h1>
-      
+      <h1>Technical Document</h1>     
     </header>
+
+    <div class="temporary-holder-close">
+     
+      <section>
+        <h1 class="heading" id="#">Title</h1>
+        <div class="code-block">
+          
+        </div>
+      </section>
+    <!--   Title -->
+        
+      <section>
+        <h1 class="heading" id="#">Title</h1>
+        <div class="code-block">
+          
+        </div>
+      </section>
+    <!--   Title --> 
+    
+      <section>
+        <h1 class="heading" id="#">Title</h1>
+        <div class="code-block">
+          
+        </div>
+      </section>
+    <!--   Title -->
+     
+      <section>
+        <h1 class="heading" id="#">Title</h1>
+        <div class="code-block">
+          
+        </div>
+      </section>
+    <!--   Title -->
+        
+      <section>
+        <h1 class="heading" id="#">Title</h1>
+        <div class="code-block">
+          
+        </div>
+      </section>
+    <!--   Title -->  
+    
+      <section>
+        <h1 class="heading" id="#">Title</h1>
+        <div class="code-block">
+          
+        </div>
+      </section>
+    <!--   Title -->
+     
+      <section>
+        <h1 class="heading" id="#">Title</h1>
+        <div class="code-block">
+          
+        </div>
+      </section>
+    <!--   Title -->
+        
+      <section>
+        <h1 class="heading" id="#">Title</h1>
+        <div class="code-block">
+          
+        </div>
+      </section>
+    <!--   Title --> 
+    
+      <section>
+        <h1 class="heading" id="#">Title</h1>
+        <div class="code-block">
+          
+        </div>
+      </section>
+    <!--   Title -->
+     
+      <section>
+        <h1 class="heading" id="#">Title</h1>
+        <div class="code-block">
+          
+        </div>
+      </section>
+    <!--   Title -->
+        
+      <section>
+        <h1 class="heading" id="#">Title</h1>
+        <div class="code-block">
+          
+        </div>
+      </section>
+    <!--   Title -->  
+    </div>
   
+    <section>
+      <h1 class="heading" id="#">Object Oriented Programming: Core Concepts</h1>
+      <div class="code-block">
+        <h1>Encapsulation:</h1>
+        <pre class="note">Related variables and functions are encapsulated in an object. The variable in the object is called <code>properties</code> and the functions in the object are called <code>methods</code></pre>
+        <pre>prevents spagetti code and increases usablity</pre>
+        <pre class="note">Functions have fewer paramters</pre>
+        <pre>Properties in the object can be used instead of parameters.</pre>
+        <h1>Abstraction</h1>
+        <pre class="note">Simpler Interface</pre>
+        <pre>Complexity is hidden aka abstracted away from the user</pre>
+        <pre class="note">Isolate and Reduce the Impact of Changes</pre>
+        <pre>None of the changes will leak to the outside because we don't have any code interacting with the code inside the object</pre>
+        <h1>Inheritance</h1>
+        <pre class="note">Reduce redudant code</pre>
+        <pre>Mechanism that lessens the need to repeat code or refactor code. This mechanism is to take properties and methods that you want to share between objecs and define it once in a generic object. And have other objects inherit these properties and methods.</pre>
+        <h1>Polymorphism</h1>
+        <pre class="note">Removes the need to use if or switch cases to each unique object</pre>
+
+      </div>
+    </section>
+  <!--   Title -->
+
+    <section>
+      <h1 class="heading" id="#">Procedural vs Object Oriented Programming</h1>
+      
+      <div class="code-block">
+        <h1>Procedural Programming</h1>
+        <pre>let baseSalary = 30_000;
+  let overtime = 10;
+  let rate = 20;
+  
+  function getWage(baseSalary, overtime, rate) {
+    return baseSalary + (overtime * rate);
+  }</pre>
+    <h1>Cons:</h1>
+    <pre class="flag">Decoupled variables - leads to spaghetti code</pre>
+    <pre class="flag">Lots of parameters</pre>
+        <h1>Object Oriented Programming</h1>
+        <pre>let employee = {
+    baseSalary: 30_000,
+    overtime: 10,
+    rate: 20,
+    getWage: function() {
+      return this.baseSalary + (this.overtime * this.rate);
+    }</pre>
+        <h1>Output</h1>
+        <pre>employee.getWage();
+  // 30200s</pre>
+          <h1>Pros:</h1>
+          <pre class="note">Encapsulates related variables and funtions inside an object</pre>
+          <pre class="note">0 or less paramters - "the best functions are thouse with no parameters!"</pre>
+      </div>
+      
+    </section>
+  <!--   Procedural vs Object Oriented Programming -->   
+
     <section>
       <h1 class="heading">Define a Constructor Function</h1>
       <div class="code-block">
@@ -1365,104 +1514,6 @@
       </div>
     </section>
   <!--   ES6 Destructuring Objects -->
-  <div class="temporary-holder-close">
-    
-    <section>
-      <h1 class="heading" id="#">Title</h1>
-      <div class="code-block">
-        
-      </div>
-    </section>
-  <!--   Title -->
-   
-    <section>
-      <h1 class="heading" id="#">Title</h1>
-      <div class="code-block">
-        
-      </div>
-    </section>
-  <!--   Title -->
-      
-    <section>
-      <h1 class="heading" id="#">Title</h1>
-      <div class="code-block">
-        
-      </div>
-    </section>
-  <!--   Title --> 
-  
-    <section>
-      <h1 class="heading" id="#">Title</h1>
-      <div class="code-block">
-        
-      </div>
-    </section>
-  <!--   Title -->
-   
-    <section>
-      <h1 class="heading" id="#">Title</h1>
-      <div class="code-block">
-        
-      </div>
-    </section>
-  <!--   Title -->
-      
-    <section>
-      <h1 class="heading" id="#">Title</h1>
-      <div class="code-block">
-        
-      </div>
-    </section>
-  <!--   Title -->  
-  
-    <section>
-      <h1 class="heading" id="#">Title</h1>
-      <div class="code-block">
-        
-      </div>
-    </section>
-  <!--   Title -->
-   
-    <section>
-      <h1 class="heading" id="#">Title</h1>
-      <div class="code-block">
-        
-      </div>
-    </section>
-  <!--   Title -->
-      
-    <section>
-      <h1 class="heading" id="#">Title</h1>
-      <div class="code-block">
-        
-      </div>
-    </section>
-  <!--   Title --> 
-  
-    <section>
-      <h1 class="heading" id="#">Title</h1>
-      <div class="code-block">
-        
-      </div>
-    </section>
-  <!--   Title -->
-   
-    <section>
-      <h1 class="heading" id="#">Title</h1>
-      <div class="code-block">
-        
-      </div>
-    </section>
-  <!--   Title -->
-      
-    <section>
-      <h1 class="heading" id="#">Title</h1>
-      <div class="code-block">
-        
-      </div>
-    </section>
-  <!--   Title -->  
-  </div>
   </main>
 </body>
 </html>

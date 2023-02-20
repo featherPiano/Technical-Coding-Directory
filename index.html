@@ -56,39 +56,164 @@
       </section>
     <!--   Title -->
      
-      <section>
-        <h1 class="heading" id="#">Title</h1>
-        <div class="code-block">
-          
-        </div>
-      </section>
-    <!--   Title -->
-        
-      <section>
-        <h1 class="heading" id="#">Title</h1>
-        <div class="code-block">
-          
-        </div>
-      </section>
-    <!--   Title -->  
     
-      <section>
-        <h1 class="heading" id="#">Title</h1>
-        <div class="code-block">
-          
-        </div>
-      </section>
-    <!--   Title -->
-     
   </div>
-  
+
     <section>
-      <h1 class="heading" id="#">Title</h1>
+      <h1 class="heading" id="#">Constructor Property Pitfalls</h1>
       <div class="code-block">
-        
+        <pre>function Bird(name) {
+  this.name = name;
+}</pre>
+        <pre>Bird.prototype = {
+  numLegs: 2, 
+  eat: function() {
+    console.log("nom nom nom");
+  },
+  describe: function() {
+    console.log("My name is " + this.name);
+  }
+};</pre>
+        <p>There is one crucial side effect of manually setting the prototype to a new object. It erases the <code>constructor</code> property! This property can be used to check which constructor function created the instance, but since the property has been overwritten, it now gives false results:</p>
+        <pre>duck.constructor === Bird; // false <pre class="flag">Uhooh!</pre>
+duck.constructor === Object; // true <pre class="flag">The constructor test on <code>Bird</code> returned false but this returned true because the object has overritten the constructor property!</pre>
+duck instanceof Bird; // true</pre>
+        <pre class="note"><strong>Note:</strong> the <code>instanceof</code> method returns <code>true</code> and is NOT affected which is the reason it is preferred over the <code>constructor</code> property</pre>
+        <p>To fix this, whenever a prototype is manually set to a new object, remember to define the <code>constructor</code> property:</p>
+        <pre>Bird.prototype = {
+  <strong>constructor: Bird</strong>,
+  numLegs: 2,
+  eat: function() {
+    console.log("nom nom nom");
+  },
+  describe: function() {
+    console.log("My name is " + this.name); 
+  }
+};</pre>
+        <pre>duck.constructor === Bird; // <strong>true</strong>
+duck.constructor === Object; // <strong>false</strong>
+duck instanceof Bird; // true </pre>
+        <h1>Example 2:</h1>
+        <pre>function Dog(name) {
+  this.name = name;
+}</pre>
+
+        <pre>Dog.prototype = {
+  constructor: Dog,
+  numLegs: 4,
+  eat: function() {
+    console.log("nom nom nom");
+  },
+  describe: function() {
+    console.log("My name is " + this.name);
+  }
+};</pre>
       </div>
     </section>
-  <!--   Title -->
+  <!--   Constructor Property Pitfalls -->
+      
+    <section>
+      <h1 class="heading" id="#">Defining Multiple Properties and Methods to a Prototype</h1>
+      <div class="code-block">
+        <p>It is not sustainable to add propertie to a <code>prototype</code> individually.</p>
+        <pre>Bird.prototype.numLegs = 2;</pre>
+
+        <pre>Bird.prototype.eat = function() {
+  console.log("nom nom nom");
+}</pre>
+
+        <pre>Bird.prototype.describe = function() {
+  console.log("My name is " + this.name);
+}</pre>
+        <p>A more efficient way is to set the <code>prototype</code> to a new object that already contains the properties. This way, the properties are added all at once:</p>
+        <pre>function Bird(name) {
+  this.name = name;
+}</pre>
+        <pre>Bird.prototype = {
+  numLegs: 2, 
+  eat: function() {
+    console.log("nom nom nom");
+  },
+  describe: function() {
+    console.log("My name is " + this.name);
+  }
+};</pre>
+        <h1>Example 2:</h1>
+        <pre>function Dog(name) {
+  this.name = name;
+}</pre>
+        <pre>Dog.prototype = {
+  numLegs: 4,
+  eat() {
+    console.log("nom nom nom");
+  },
+  describe() {
+    console.log("My name is " + this.name);
+  }
+};</pre>
+      </div>
+    </section>
+  <!--   Defining Multiple Properties and Methods to a Prototype -->  
+
+    <section>
+      <h1 class="heading" id="#">Constructor Property</h1>
+      <div class="code-block">
+        <pre class="note">There is a special <code>constructor</code> property located on object instances. It can be used to test whether an object is an instance of a constructor function</pre>
+        <pre class="note"><code>object</code>.contructor === <code>ConstructorFunction</code></pre>
+        <pre>function Bird(name) {
+  this.name = name;
+}
+
+let duck = new Bird("Donald")
+
+function Dog(name) {
+  this.name = name;
+}
+
+let beagle = new Dog("Henry")</pre>
+        <pre>console.log(duck.constructor === Bird); // true
+console.log(beagle.constructor === Dog); // true</pre>
+<p>Note that the <code>constructor</code> property is a reference to the constructor function that created the instance. The advantage of the <code>constructor</code> property is that it's possible to check for this property to find out what kind of object it is. Here's an example of how this could be used:</p>
+
+          <pre>function joinBirdFraternity(candidate) {
+    if (candidate.constructor === Bird) {
+      return true;
+    } else {
+      return false;
+    }
+  }</pre>
+  <pre class="flag"><strong>Note:</strong> Since the <code>constructor</code> property can be overwritten, it is generally better to use the <code>instanceof</code> method to check the type of an object.</pre>
+      </div>
+    </section>
+  <!--   Constructor Property -->
+  
+    <section>
+      <h1 class="heading" id="#">The Two Types of Properties: Own Properties and Prototype Properties</h1>
+      <div class="code-block">
+        <p>You have now seen two kinds of properties: <em>own properties</em> and <code>prototype</code> properties. Own properties are defined directly on the object instance itself. And prototype properties are defined on the <code>prototype</code>.</p>
+        <pre>function Dog(name, color) {
+  this.name = name;
+  this.color = color;
+}
+Dog.prototype.numLegs = 4;
+
+let beagle = new Dog("Snoopy", "white and black");</pre>
+
+        <pre>let ownProps = [];
+let prototypeProps = [];
+
+for (let property in beagle) {
+  if(beagle.hasOwnProperty(property)) {
+    ownProps.push(property);
+  } else {
+    prototypeProps.push(property);
+  }
+}
+console.log(ownProps); // ['name', 'color']
+console.log(prototypeProps) // ['numLegs']</pre>
+      </div>
+    </section>
+  <!--   The Two Types of Properties: Own Properties and Prototype Properties -->
       
     <section>
       <h1 class="heading" id="#">Prototype Property</h1>
@@ -152,7 +277,7 @@ let canary = new Bird("Tweety");</pre>
   <!--   Understanding Own Properties -->
 
   <section>
-      <h1 class="heading" id="#">Instance Of</h1>
+      <h1 class="heading" id="#">Instance Of Method</h1>
       <div class="code-block">
         <p>Anytime a constructor function creates a new object, that object is said to be an <em>instance of</em> its constructor. JavaScript gives a convenient way to verify this with the <code>instanceof</code> operator. <code>instanceof</code> allows you to compare an object to a constructor, returning <code>true</code> or <code>false</code> based on whether or not that object was created with the constructor. Here's an example:</p>
 

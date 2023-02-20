@@ -80,47 +80,139 @@
       </section>
     <!--   Title -->
      
-      <section>
-        <h1 class="heading" id="#">Title</h1>
-        <div class="code-block">
-          
-        </div>
-      </section>
-    <!--   Title -->
-        
-      <section>
-        <h1 class="heading" id="#">Title</h1>
-        <div class="code-block">
-          
-        </div>
-      </section>
-    <!--   Title --> 
-    
-      <section>
-        <h1 class="heading" id="#">Title</h1>
-        <div class="code-block">
-          
-        </div>
-      </section>
-    <!--   Title -->
-     
-      <section>
-        <h1 class="heading" id="#">Title</h1>
-        <div class="code-block">
-          
-        </div>
-      </section>
-    <!--   Title -->
-        
-      <section>
-        <h1 class="heading" id="#">Title</h1>
-        <div class="code-block">
-          
-        </div>
-      </section>
-    <!--   Title -->  
-    </div>
+  </div>
   
+    <section>
+      <h1 class="heading" id="#">Title</h1>
+      <div class="code-block">
+        
+      </div>
+    </section>
+  <!--   Title -->
+      
+    <section>
+      <h1 class="heading" id="#">Prototype Property</h1>
+      <div class="code-block">
+        <pre class="note">The <code>prototype property</code> is used to merge instances of the same variable in objects as one shared instance.</pre>
+        <p>Take for instance this code:</p>
+        <pre>let Bird = function(name, color) {
+  this.name = name;
+  this.color = color;
+  this.numLegs = 2;
+}
+
+let crow = new Bird("Alexis", "black");
+let parrot = new Bird("Pipper", "blue and yellow");</pre>
+        <p>Since <code>numLegs</code> will probably have the same value for all instances of <code>Bird</code>, you essentially have a duplicated variable <code>numLegs</code> inside each <code>Bird</code> instance.</p>
+        <p>This may not be an issue when there are only two instances, but imagine if there are millions of instances. That would be a lot of duplicated variables.</p>
+        <p>A better way is to use the <code>prototype</code> of <code>Bird</code>. Properties in the <code>prototype</code> are shared among ALL instances of <code>Bird</code>. Here's how to add numLegs to the <code>Bird prototype</code>:</p>
+        <pre>Bird.prototype.numLegs = 2;</pre>
+        <p>Now all instances of Bird have the numLegs property.</p>
+        <pre>console.log(crow.numLegs); // 2
+console.log(parrot.numLegs); // 2</pre>
+        <p>Since all instances automatically have the properties on the <code>prototype</code>, think of a <code>prototype</code> as a "recipe" for creating objects. Note that the <code>prototype</code> for <code>duck</code> and <code>canary</code> is part of the <code>Bird</code> constructor as <code>Bird.prototype</code>. Nearly every object in JavaScript has a <code>prototype</code> property which is part of the constructor function that created it.</p>
+        <h1>Example 2:</h1>
+        <pre>function Dog(name) {
+  this.name = name;
+}
+
+Dog.prototype.numLegs = 4;
+
+let beagle = new Dog("Snoopy");
+console.log(beagle.numLegs);
+// 4</pre>
+      </div>
+    </section>
+  <!--   Prototype Property --> 
+  
+    <section>
+      <h1 class="heading" id="#">Understanding Own Properties</h1>
+      <div class="code-block">
+        <p>In the following example, the <code>Bird</code> constructor defines two properties: <code>name</code> and <code>numLegs</code>:</p>
+        <pre>function Bird(name) {
+  this.name = name;
+  this.numLegs = 2;
+}
+
+let duck = new Bird("Donald");
+let canary = new Bird("Tweety");</pre>
+        <p><code>name</code> and <code>numLegs</code> are called <em>own properties</em>, because they are defined directly on the instance object. That means that <code>duck</code> and <code>canary</code> each has its own separate copy of these properties. In fact every instance of <code>Bird</code> will have its own copy of these properties. The following code adds all of the own properties of <code>duck</code> to the array <code>ownProps</code>:</p>
+        <pre>let ownProps = [];
+
+  for (let property in duck) {
+    if(duck.hasOwnProperty(property)) {
+      ownProps.push(property);
+    }
+  }
+  
+  console.log(ownProps);
+// ["name", "numLegs"]</pre>
+      </div>
+    </section>
+  <!--   Understanding Own Properties -->
+
+  <section>
+      <h1 class="heading" id="#">Instance Of</h1>
+      <div class="code-block">
+        <p>Anytime a constructor function creates a new object, that object is said to be an <em>instance of</em> its constructor. JavaScript gives a convenient way to verify this with the <code>instanceof</code> operator. <code>instanceof</code> allows you to compare an object to a constructor, returning <code>true</code> or <code>false</code> based on whether or not that object was created with the constructor. Here's an example:</p>
+
+        <pre class="note"><code>object</code> instanceof <code>ContructorObject</code></pre>
+
+        <h1>Example 1:</h1>
+<pre>let Bird = function(name, color) {
+  this.name = name;
+  this.color = color;
+  this.numLegs = 2;
+}
+
+let crow = new Bird("Alexis", "black");</pre>
+
+<pre class="note">
+<code>crow</code> instanceof <code>Bird</code>;
+// true</pre>
+<h1>Example 2:</h1>
+<pre>let canary = {
+  name: "Mildred",
+  color: "Yellow",
+  numLegs: 2
+};</pre>
+
+<pre class="note"><code>canary</code> instanceof <code>Bird</code>;
+// false</pre>
+      </div>
+    </section>
+  <!--   Instance of Method -->
+
+    <section>
+      <h1 class="heading" id="#">Flexibility of Constructors </h1>
+      <div class="code-block">
+        
+<pre>function Bird() {
+  this.name = "Alfred";
+  this.color = "blue";
+  this.numLegs = 2;
+}</pre>
+
+<pre>let swan = new Bird();
+swan.name = "Carlos";
+swan.color = "white";</pre>
+
+<p>Suppose you were writing a program to keep track of hundreds or even thousands of different birds in an aviary. It would take a lot of time to create all the birds, then change the properties to different values for every one. To more easily create different <code>Bird</code> objects, you can design your Bird constructor to accept parameters:</p>
+
+<pre>function Bird(name, color) {
+  this.name = name;
+  this.color = color;
+  this.numLegs = 2;
+}</pre>
+<h1>Output</h1>
+<pre>let swan = new Bird("Carlos","white")
+
+console.log(swan);
+// { name: 'Carlos', color: 'white', numLegs: 2 }</pre>
+      </div>
+    </section>
+  <!--   Flexibility of Constructors -->
+
     <section>
       <h1 class="heading" id="#">Object Oriented Programming: Core Concepts</h1>
       <div class="code-block">
@@ -142,7 +234,7 @@
 
       </div>
     </section>
-  <!--   Title -->
+  <!--   Object Oriented Programming: Core Concepts -->
 
     <section>
       <h1 class="heading" id="#">Procedural vs Object Oriented Programming</h1>

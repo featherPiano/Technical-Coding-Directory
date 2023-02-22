@@ -39,28 +39,69 @@
         </div>
       </section>
     <!--   Title -->
-        
-      <section>
-        <h1 class="heading" id="#">Title</h1>
-        <div class="code-block">
-          
-        </div>
-      </section>
-    <!--   Title --> 
-    
-      <section>
-        <h1 class="heading" id="#">Title</h1>
-        <div class="code-block">
-          
-        </div>
-      </section>
-    <!--   Title -->
-     
-    
-  </div>
 
-    <section>
-      <h1 class="heading" id="#">Constructor Property Pitfalls</h1>
+    </div>
+
+
+  <section>
+    <h1 class="heading" id="#">Title</h1>
+    <div class="code-block">
+      
+    </div>
+  </section>
+<!--   Title --> 
+
+  <section>
+    <h1 class="heading" id="#">Title</h1>
+    <div class="code-block">
+      
+    </div>
+  </section>
+<!--   Title -->
+
+  <section>
+    <h1 class="heading" id="#">The Prototype Chain</h1>
+    <div class="code-block">
+      <p>All objects in JavaScript (with a few exceptions) have a <code>prototype</code>. Also, an object's <code>prototype</code> itself is an object.</p>
+
+      <pre>function Bird(name) {
+  this.name = name;
+}
+      
+typeof Bird.prototype;</pre>
+
+      <p>Because a <code>prototype</code> is an object, a <code>prototype</code> can have its own <code>prototype</code>! In this case, the <code>prototype</code> of <code>Bird.prototype</code> is <code>Object.prototype</code>:</p>
+      <pre>Object.prototype.isPrototypeOf(Bird.prototype);</pre>
+      <p>How is this useful? You may recall the <code>hasOwnProperty</code> method from a previous challenge:</p>
+
+      <pre>let duck = new Bird("Donald");
+duck.hasOwnProperty("name");</pre>
+
+      <p><code>Object</code> is a <code>supertype</code> for all objects in JavaScript. Therefore, any object can use the <code>hasOwnProperty</code> method.</p>
+      
+      <p>The <code>hasOwnProperty</code> method is defined in <code>Object.prototype</code>, which can be accessed by <code>Bird.prototype</code>, which can then be accessed by <code>duck</code>. This is an example of the <code>prototype</code> chain. In this <code>prototype chain</code>, <code>Bird</code> is the <code>supertype</code> for <code>duck</code>, while <code>duck</code> is the <code>subtype</code>.</p>
+    </div>
+  </section>
+<!--   The Prototype Chain -->
+
+  <section>
+    <h1 class="heading" id="#">IsPrototypeOf Method</h1>
+    <div class="code-block">
+      <pre>function Bird(name) {
+  this.name = name;
+}
+
+let duck = new Bird("Donald");</pre>
+      <p><code>duck</code> inherits its <code>prototype</code> from the <code>Bird</code> constructor function. You can show this relationship with the <code>isPrototypeOf</code> method:</p>
+      <pre class="note"><code>ConstructorFunction</code>.prototype.isPrototypeOf(<code>object</code>)</pre>
+      <pre>Bird.prototype.isPrototypeOf(duck);
+// true</pre>
+    </div>
+  </section>
+<!--   IsPrototypeOf Method -->
+
+  <section>
+    <h1 class="heading" id="#">Constructor Property Pitfalls</h1>
       <div class="code-block">
         <pre>function Bird(name) {
   this.name = name;

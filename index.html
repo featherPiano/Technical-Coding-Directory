@@ -57,14 +57,230 @@
       
     </div>
   </section>
-<!--   Title -->
+<!--   Title --> 
+
+  <section>
+    <h1 class="heading" id="#">Override Inherited Methods</h1>
+    <div class="code-block">
+      <p>It's possible to override an inherited method. It's done by adding a method to <code>ChildObject.prototype</code> using the same method name as the one you want to override. Here's an example of <code>Bird</code> overriding the <code>eat()</code> method inherited from <code>Animal</code>:</p>
+
+<pre>function Animal() { }
+
+Animal.prototype.eat = function() {
+  return "nom nom nom";
+};
+
+function Bird() { }
+Bird.prototype = Object.create(Animal.prototype);
+Bird.prototype.constructor = Bird;
+
+Bird.prototype.eat = function() {
+  return "peck peck peck";
+};
+
+let chicken = new Bird();
+chicken.eat() // peck peck peck</pre>
+
+      <p>This is how JavaScript looks for the method on the <code>prototype</code> chain of <code>duck</code>:</p>
+
+      <ul>
+        <li><code>duck</code> => Is <code>eat()</code> defined here? No.</li>
+        <li><code>Bird</code> => Is <code>eat()</code> defined here? => Yes. Execute it and stop searching.</li>
+        <li><code>Animal</code> => <code>eat()</code> is also defined, but JavaScript stopped searching before reaching this level.</li>
+        <li>Object => JavaScript stopped searching before reaching this level.</li>
+      </ul>
+:
+      <h1>Additional Example:</h1>
+
+<pre>function Bird() { }
+
+Bird.prototype.fly = function() { return "I am flying!"; };
+
+function Penguin() { }
+Penguin.prototype = Object.create(Bird.prototype);
+Penguin.prototype.constructor = Penguin;
+
+Penguin.prototype.fly = function() {
+  return "Alas, this is a flightless bird."
+}
+
+let penguin = new Penguin();
+console.log(penguin.fly());
+// Alas, this is a flightless bird.</pre>
+
+    </div>
+  </section>
+<!--   Override Inherited Methods --> 
+
+  <section>
+    <h1 class="heading" id="#">Add Methods After Inheritance</h1>
+    <div class="code-block">
+      <p>A constructor function that inherits its <code>prototype</code> object from a supertype constructor function can still have its own methods in addition to inherited methods.</p>
+
+<pre>function Animal() { }
+Animal.prototype.eat = function() {
+  console.log("nom nom nom");
+};
+function Bird() { }
+Bird.prototype = Object.create(Animal.prototype);
+Bird.prototype.constructor = Bird;</pre>
+
+      <p>In addition to what is inherited from <code>Animal</code>, you want to add behavior that is unique to <code>Bird</code> objects. Here, <code>Bird</code> will get a <code>fly()</code> function. Functions are added to <code>Bird's</code> <code>prototype</code> the same way as any constructor function:</p>
+
+<pre>Bird.prototype.fly = function() {
+  console.log("I'm flying!");
+};</pre>
+
+      <p>Now instances of <code>Bird</code> will have both <code>eat()</code> and <code>fly()</code> methods:</p>
+
+<pre>let duck = new Bird();
+duck.eat(); // nom nom nom
+duck.fly(); // I'm flying!</pre>
+
+      <h1>Additional Example</h1>
+
+<pre>function Animal() { }
+Animal.prototype.eat = function() { 
+  console.log("nom nom nom"); 
+};
+
+function Dog(name) {
+  this.name = name;
+  }
+
+Dog.prototype = Object.create(Animal.prototype);
+Dog.prototype.constructor = Dog;
+
+Dog.prototype.bark = function () {
+  console.log("Woof!");
+}
+
+let husky = new Dog("Winter");
+console.log(husky.name); // Winter
+console.log(husky.eat()); // nom nom nom
+console.log(husky.bark()); // Woof!</pre>
+    </div>
+  </section>
+<!--   Add Methods After Inheritance --> 
+
+  <section>
+    <h1 class="heading" id="#">Reset an Inherited Constructor Property</h1>
+    <div class="code-block">
+
+      <p>When an object inherits its <code>prototype</code> from another object, it also inherits the supertype's constructor property.</p>
+      <p>Here's an example:</p>
+
+<pre>function Bird() { }
+Bird.prototype = Object.create(Animal.prototype);
+let duck = new Bird();</pre>
+
+<pre>duck.constructor === Bird; // false <pre class="flag">Uhooh!</pre>
+duck.constructor === Animal; // true <pre class="flag">The constructor test on <code>Bird</code> returned false but this returned true because the Bird.prototype was overritten. When it inherited the animal.prototype it also inherited its constructor property, <code>constructor: Animal</code>!</pre></pre>
+
+      <h1>Before inheritance:</h1>
+
+<pre>Bird.prototype = {
+  <strong>constructor: Bird</strong>,
+}</pre>
+
+      <h1>After inheritance of Animal.prototype:</h1>
+
+<pre class="flag">Bird.prototype = {
+  <strong>constructor: Animal</strong>,
+}</pre>
+
+<p>When the Bird prototype inherited the Animal prototype, it also inherited its constructor property. Therefore when the duck instance is tested for the its constructor, it looks at the Bird constructor, but the bird constructor is showing <code>Animal</code> as its constructor property. Therefore, the output will show Animal</p>
+      
+      <p>This can be fixed by manually resetting the constructor property:</p>
+
+<pre>Bird.prototype.constructor = Bird;
+duck.constructor; // [Function: Bird]</pre>
+
+      <h1>Quick Note:</h1>
+
+<pre>duck instanceof Bird; // true <pre class="note">The <code>instanceof</code> method returns <code>true</code> and is NOT affected which is the reason it is preferred over the <code>constructor</code> property</pre></pre>
+
+    </div>
+  </section>
+<!--   Reset an Inherited Constructor Property --> 
+
+  <section>
+    <h1 class="heading" id="#">Object.create() Method for Inheritance</h1>
+    <div class="code-block">
+
+      <p><code>Object.create(obj)</code> is a method that allows you to reuse the methods of a <code>supertype</code>. In other words, it is method that allows you to create prototype chains.</p> 
+      <p>In this code block, we will turn <code>Animal.prototype</code> into a supertype so that its methods can be use by its subtypes</p>
+
+<pre>function Animal() { }
+
+Animal.prototype.eat = function() {
+  console.log("nom nom nom");
+};</pre>
+        
+      <p>The goal in creating a prototype chain is to set up inheritance, and the first step is to make an instance of the <code>supertype</code> (or parent). You already know one way to create an instance of a subtype using the <code>new</code> operator:</p>
+      <pre class="flag">let animal = new Animal();</pre>
+      <p>However there are some disadvantages when using this syntax for inheritance. Instead, an alternative approach without those disadvantages is to use <code>Object.create(obj)</code>.</p>
+
+<pre>let bird = Object.create(Animal.prototype);
+
+bird.eat(); \\ "nom nom nom"
+bird instanceof Animal; \\ true</pre>
+
+      <p><code>Object.create(obj)</code> creates a new object, and sets the <code>obj</code> as the new object's <code>prototype</code>. By setting the <code>prototype</code> of <code>bird</code> to be the <code>prototype</code> of <code>Animal</code>, you are effectively giving the <code>bird</code> instance the same "recipe" as any other instance of <code>Animal</code>.</p>
+
+      <h1>Additional Example</h1>
+
+      <p>This example is where the <code>Object.create()</code> really comes to shine. The <code>Animal.prototype</code> is set to be the <code>prototype</code> of <code>Dog.prototype</code>. <code>beagle</code> is then set to be a new instance of the <code>Dog</code> constructor. Through inheritance the <code>beagle</code> instance is able to access the <code>eat()</code> method</p>
+
+<pre>function Animal() { }
+
+Animal.prototype = {
+  constructor: Animal,
+  eat: function() {
+    console.log("nom nom nom");
+  }
+};
+
+function Dog() { }
+
+Dog.prototype = Object.create(Animal.prototype);
+
+let beagle = new Dog();
+
+beagle.eat(); // nom nom nom
+beagle instanceof Dog // true
+beagle instanceof Animal // true</pre>
+      
+      <p>The <code>Object.create()</code> method can be very useful, because it allows you to choose the <code>prototype</code> object for the object you want to create, without having to define a constructor function.</p>
+
+<pre>// Animal properties and method encapsulation
+const Animal = {
+  type: "Invertebrates", // Default value of properties
+  displayType() {
+    // Method which will display type of Animal
+    console.log(this.type);
+  },
+};
+
+// Create new animal type called animal1
+const animal1 = Object.create(Animal);
+animal1.displayType(); // Logs: Invertebrates
+
+// Create new animal type called fish
+const fish = Object.create(Animal);
+fish.type = "Fishes";
+fish.displayType(); // Logs: Fishes</pre>
+
+    </div>
+  </section>
+<!--   Object.create() Method for Inheritance  -->
 
   <section>
     <h1 class="heading" id="#">The Prototype Chain</h1>
     <div class="code-block">
       <p>All objects in JavaScript (with a few exceptions) have a <code>prototype</code>. Also, an object's <code>prototype</code> itself is an object.</p>
 
-      <pre>function Bird(name) {
+<pre>function Bird(name) {
   this.name = name;
 }
       
@@ -74,7 +290,7 @@ typeof Bird.prototype;</pre>
       <pre>Object.prototype.isPrototypeOf(Bird.prototype);</pre>
       <p>How is this useful? You may recall the <code>hasOwnProperty</code> method from a previous challenge:</p>
 
-      <pre>let duck = new Bird("Donald");
+<pre>let duck = new Bird("Donald");
 duck.hasOwnProperty("name");</pre>
 
       <p><code>Object</code> is a <code>supertype</code> for all objects in JavaScript. Therefore, any object can use the <code>hasOwnProperty</code> method.</p>
@@ -87,15 +303,20 @@ duck.hasOwnProperty("name");</pre>
   <section>
     <h1 class="heading" id="#">IsPrototypeOf Method</h1>
     <div class="code-block">
-      <pre>function Bird(name) {
+
+<pre>function Bird(name) {
   this.name = name;
 }
 
 let duck = new Bird("Donald");</pre>
+
       <p><code>duck</code> inherits its <code>prototype</code> from the <code>Bird</code> constructor function. You can show this relationship with the <code>isPrototypeOf</code> method:</p>
+
       <pre class="note"><code>ConstructorFunction</code>.prototype.isPrototypeOf(<code>object</code>)</pre>
-      <pre>Bird.prototype.isPrototypeOf(duck);
+
+<pre>Bird.prototype.isPrototypeOf(duck);
 // true</pre>
+
     </div>
   </section>
 <!--   IsPrototypeOf Method -->
